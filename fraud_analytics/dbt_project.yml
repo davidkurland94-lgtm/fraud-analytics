@@ -10,7 +10,6 @@ analysis-paths: ["analyses"]
 test-paths: ["tests"]
 seed-paths: ["seeds"]
 macro-paths: ["macros"]
-data-paths: ["data"]
 snapshot-paths: ["snapshots"]
 
 clean-targets:
@@ -25,6 +24,6 @@ models:
     example:
       +materialized: view
     staging:
-      materialized: table
+      +materialized: table
     marts:
-      materialized: table
+      +materialized: table
