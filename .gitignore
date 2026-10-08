@@ -1,7 +1,8 @@
 # dbt
 target/
 dbt_packages/
-dbt/logs/
+logs/
+fraud_analytics/logs/
 
 # Python
 __pycache__/

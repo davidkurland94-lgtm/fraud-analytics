@@ -5,8 +5,26 @@ models:
     description: "One row per transaction with rule-based fraud flags and a risk level."
     columns:
       - name: transaction_id
-        data_tests: [unique, not_null]
+        description: "Primary key; joins to stg_transactions."
+        data_tests:
+          - unique
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_transactions')
+                field: transaction_id
+      - name: is_fraudulent
+        description: "Ground-truth label from the dataset (1 = fraud)."
+      - name: flag_large_amount
+        description: "Amount is above the 95th percentile."
+      - name: flag_elevated_amount
+        description: "Amount is above the 90th percentile."
+      - name: flag_unusual_time
+        description: "Transaction hour falls between unusual_hour_start and unusual_hour_end (default 2–5am)."
+      - name: flag_high_risk_score
+        description: "feature_score is above high_risk_score_threshold."
       - name: risk_level
+        description: "'high' = large amount AND high risk score; 'medium' = elevated amount; otherwise 'low'."
         data_tests:
           - accepted_values:
               arguments:

@@ -1,4 +1,3 @@
-
 name: 'fraud_analytics'
 version: '1.0.0'
 config-version: 2
@@ -26,9 +25,6 @@ vars:
 # Configuring models
 models:
   fraud_analytics:
-    # Config indicated by + and applies to all files under models/example/
-    example:
-      +materialized: view
     staging:
       +materialized: table
     marts:

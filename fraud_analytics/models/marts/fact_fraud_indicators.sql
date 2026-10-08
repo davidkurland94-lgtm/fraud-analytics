@@ -1,6 +1,5 @@
--- Rule-based fraud flags per transaction.
--- Hours come from the assumed transactions_start_ts (see stg_transactions).
-{% set score_threshold = var('high_risk_score_threshold') %}
+-- One row per transaction with rule-based fraud flags and an overall risk level.
+-- Hour-of-day flags depend on the assumed transactions_start_ts (see stg_transactions).
 
 WITH transactions AS (
   SELECT * FROM {{ ref('stg_transactions') }}
@@ -26,7 +25,7 @@ flagged AS (
     t.amount > th.amount_p90 AS flag_elevated_amount,
     EXTRACT(HOUR FROM t.transaction_time)
       BETWEEN {{ var('unusual_hour_start') }} AND {{ var('unusual_hour_end') }} AS flag_unusual_time,
-    t.feature_score > {{ score_threshold }} AS flag_high_risk_score
+    t.feature_score > {{ var('high_risk_score_threshold') }} AS flag_high_risk_score
   FROM transactions AS t
   CROSS JOIN thresholds AS th
 )
