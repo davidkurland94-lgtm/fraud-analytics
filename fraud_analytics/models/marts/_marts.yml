@@ -1,0 +1,13 @@
+version: 2
+
+models:
+  - name: fact_fraud_indicators
+    description: "One row per transaction with rule-based fraud flags and a risk level."
+    columns:
+      - name: transaction_id
+        data_tests: [unique, not_null]
+      - name: risk_level
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ['high', 'medium', 'low']

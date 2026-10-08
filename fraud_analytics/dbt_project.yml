@@ -16,6 +16,12 @@ clean-targets:
   - "target"
   - "dbt_packages"
 
+vars:
+  transactions_start_ts: '2013-09-01 00:00:00' # Assuming the transactions start here...
+  high_risk_score_threshold: 1.0 # ~p95 of feature_score; 0.5 flags ~72% of rows
+  unusual_hour_start: 2
+  unusual_hour_end: 5
+
 
 # Configuring models
 models:
